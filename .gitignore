@@ -1,0 +1,9 @@
+# dmenu and stest executables
+dmenu
+stest
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
