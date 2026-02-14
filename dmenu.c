@@ -710,9 +710,14 @@ setup(void)
 	swa.override_redirect = True;
 	swa.background_pixel = scheme[SchemeNorm][ColBg].pixel;
 	swa.event_mask = ExposureMask | KeyPressMask | VisibilityChangeMask;
-	win = XCreateWindow(dpy, root, x, y, mw, mh, 0,
-	                    CopyFromParent, CopyFromParent, CopyFromParent,
-	                    CWOverrideRedirect | CWBackPixel | CWEventMask, &swa);
+    win = XCreateWindow(dpy, root, x, y, mw, mh, border_width,
+            CopyFromParent, CopyFromParent, CopyFromParent,
+            CWOverrideRedirect | CWBackPixel | CWEventMask, &swa);
+
+    if (border_width) {
+        XSetWindowBorder(dpy, win, scheme[SchemeSel][ColBg].pixel);
+    }
+
 	XSetClassHint(dpy, win, &ch);
 
 	/* input methods */
@@ -740,7 +745,7 @@ setup(void)
 static void
 usage(void)
 {
-	die("usage: dmenu [-bcfiv] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
+	die("usage: dmenu [-bcfiv] [-bw borderwidth] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
 	    "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]");
 }
 
@@ -767,6 +772,8 @@ main(int argc, char *argv[])
 		} else if (i + 1 == argc)
 			usage();
 		/* these options take one argument */
+        else if (!strcmp(argv[i], "-bw"))
+			border_width = atoi(argv[++i]); /* border width */
 		else if (!strcmp(argv[i], "-l"))   /* number of lines in vertical list */
 			lines = atoi(argv[++i]);
 		else if (!strcmp(argv[i], "-m"))

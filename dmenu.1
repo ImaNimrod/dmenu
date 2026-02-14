@@ -4,6 +4,8 @@ dmenu \- dynamic menu
 .SH SYNOPSIS
 .B dmenu
 .RB [ \-bcfiv ]
+.RB [ \-bw
+.IR borderwidth ]
 .RB [ \-l
 .IR lines ]
 .RB [ \-m
@@ -43,6 +45,9 @@ which lists programs in the user's $PATH and runs the result in their $SHELL.
 .TP
 .B \-b
 dmenu appears at the bottom of the screen.
+.TP
+.BI \-bw " borderwidth"
+defines the border width.
 .TP
 .B \-c
 dmenu appears centered on the screen.
@@ -90,7 +95,6 @@ defines the outline foreground color (for multiple selection).
 .TP
 .B \-v
 prints version information to stdout, then exits.
-.TP
 .BI \-w " windowid"
 embed into windowid.
 .SH USAGE
